@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import Header from "./Components/Header/Header";
+import Balance from "./Components/Balance/Balance";
+import IncomeExpense from "./Components/IncomeExpense/IncomeExpense";
+import TransactionItems from "./Components/Transaction/TransactionItems/TransactionItems";
+import AddTransaction from "./Containers/AddTransaction/AddTransaction";
+import * as actions from "./store/actions/actions";
+
+function App(props) {
+    return (
+        <div className="App">
+            <Header />
+            <Balance transactions={props.transaction} />
+            <IncomeExpense transactions={props.transaction} />
+            <TransactionItems
+                transactions={props.transaction}
+                removeTransaction={props.onRemoveTransaction} />
+            <AddTransaction />
+        </div>
+    );
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        transaction: state.transaction
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onRemoveTransaction: (id) => dispatch(actions.removeTransaction(id))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

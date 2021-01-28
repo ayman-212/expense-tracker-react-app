@@ -1,0 +1,13 @@
+.Balance {
+    margin-top: 60px;
+}
+
+.Balance h4 {
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.Balance h1 {
+    margin: 0;
+    letter-spacing: 1px;
+}
